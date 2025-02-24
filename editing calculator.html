@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="Unicode">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        a {
+            font-size: 10px;
+        }
+        body {
+            font-family: Century Gothic, serif;
+            text-align: center;
+            background-color: darkgrey;
+        }
+        .calculator {
+            width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.385);
+            display: inline-block;
+        }
+        .screen {
+            width: 87%;
+            height: 80px;
+            font-size: 40px;
+            text-align: center;
+            padding: 30px;
+            border: 5.55px solid #000;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 9px;
+        }
+        @media screen and (max-width: 650px) {
+        body {
+            font-family: Century Gothic, serif;
+            text-align: center;
+            background-color: darkgrey;
+        }
+        .calculator {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .screen {
+            width: 84%;
+            height: 95px;
+            font-size: 23px;
+            text-align: right;
+            padding: 7px;
+            border: 1.73px solid #000;
+            margin-bottom: 7px;
+            border-radius: 3px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        }
+        @media screen and (max-height: 600px) {
+        body {
+            font-family: Century Gothic, serif;
+            text-align: center;
+            background-color: darkgrey;
+        }
+        .calculator {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .screen {
+            width: 84%;
+            height: 95px;
+            font-size: 23px;
+            text-align: right;
+            padding: 7px;
+            border: 1.73px solid #000;
+            margin-bottom: 7px;
+            border-radius: 3px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: 26px;
+            font-weight: bold;
+            border: none;
+            background: black;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+        button.operator {
+            background: orange;
+            color: white;
+        }
+        button.clear {
+            grid-column: span 4;
+            background: darkorange;
+            color: white;
+            font-size: 26px;
+        }
+        button.equal {
+            background: black;
+            color: white;
+        }
+        .copyright {
+            font-size: 8px;
+            margin-top: 8px;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="background: lightgrey; color: black;">Calculator</h2>
+    
+    <div class="calculator">
+        <input type="text" id="screen" class="screen" disabled>
+
+        <div class="buttons">
+            <button onclick="appendToScreen('1 ')">1</button>
+            <button onclick="appendToScreen('2 ')">2</button>
+            <button onclick="appendToScreen('3 ')">3</button>
+            <button onclick="appendToScreen('+ ')" class="operator">+</button>
+
+            <button onclick="appendToScreen('4 ')">4</button>
+            <button onclick="appendToScreen('5 ')">5</button>
+            <button onclick="appendToScreen('6 ')">6</button>
+            <button onclick="appendToScreen('- ')" class="operator">-</button>
+
+            <button onclick="appendToScreen('7 ')">7</button>
+            <button onclick="appendToScreen('8 ')">8</button>
+            <button onclick="appendToScreen('9 ')">9</button>
+            <button onclick="appendToScreen('÷ ')" class="operator">÷</button>
+
+            <button onclick="appendToScreen('. ')">.</button>
+            <button onclick="appendToScreen('0 ')">0</button>
+            <button onclick="calculate()" class="equal">=</button>
+            <button onclick="appendToScreen('* ')" class="operator">×</button>
+
+            <button onclick="clearScreen()" class="clear">C</button>
+        </div>
+        
+        <div class="copyright">© 2025 Atheer Mahir - Edited By Jamie</div>
+    </div>
+    <br>
+    <br>
+    <a href="https://spacebar151.github.io/credits/">Credits</a>
+
+    <script>
+        let screen = document.getElementById("screen");
+
+        function appendToScreen(value) {
+            screen.value += value;
+        }
+
+        function clearScreen() {
+            screen.value = "";
+        }
+
+        function calculate() {
+            try {
+                screen.value = eval(screen.value);
+            } catch {
+                screen.value = "Error... Please Try Again    ";
+            }
+        }
+
+        document.addEventListener("keydown", function(event) {
+            const key = event.key;
+            if (!isNaN(key) || "+-*/.".includes(key)) {
+                appendToScreen(key);
+            } else if (key === "Enter") {
+                calculate();
+            } else if (key === "Backspace") {
+                screen.value = screen.value.slice(0, -1);
+            } else if (key === "Escape") {
+                clearScreen();
+            }
+        });
+    </script>
+</body>
+</html>
